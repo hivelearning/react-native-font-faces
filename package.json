@@ -16,6 +16,7 @@
   "scripts": {
     "test": "jest",
     "build": "bob build",
+    "prepare": "bob build",
     "release": "semantic-release"
   },
   "dependencies": {

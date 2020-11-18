@@ -1,5 +1,5 @@
 import { FontFace } from '../types/FontFace';
-import { TextStyle } from 'react-native';
+import { TextStyle, Platform } from 'react-native';
 import { matchFontFace } from './matchFontFace';
 import { getLocalFontName } from './getLocalFontName';
 
@@ -9,7 +9,20 @@ export function generateOverrideStyle(fontFaces: FontFace[], textStyle: TextStyl
     const fontFamily = getLocalFontName(fontFace);
     const fontWeight = undefined;
     const fontStyle = undefined;
-    return { ...textStyle, fontFamily, fontWeight, fontStyle };
+
+    const platformOverrides =
+      Platform.OS === 'ios'
+        ? {
+            fontWeight,
+            fontStyle,
+          }
+        : {};
+
+    return {
+      ...textStyle,
+      fontFamily,
+      ...platformOverrides,
+    };
   } else {
     return textStyle;
   }
